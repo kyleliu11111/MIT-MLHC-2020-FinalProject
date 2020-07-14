@@ -12,9 +12,13 @@ See `final_paper.pdf` for a detailed report on the details and motivations behin
 
 ## What's in this repository? 
 
+# Preliminaries 
+
 Because there are no gold labels for positive diagnosis of Sepsis in PIC, we must generate silver labels via a rule-based approach for training and testing. Here, we follow the method of [*Predicting Severse Sepsis using Machine Learning*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6798083/), defining a Septic patient as one with a SIRS score of at least 2, and a suspicion of infection. For an indication of this, we look for certain antibiotics in the patient's prescription history. See [*Sepsis-3 in MIMIC*](https://github.com/alistairewj/sepsis3-mimic).
 
 - `ExtractSeptic.ipynb` contains the code used to extract a list of the ID's of Septic patients
+
+# Baseline Models 
 
 For our prediction models, we focus on utilizing the time-series of vital sign data provided in PIC to diagnose Sepsis, and predict in-ICU mortality, length of stay, and abnormality in WBC count, hemoglobin, and procalcitonin. See the exact features selected in `final_paper.pdf`. 
 
@@ -27,6 +31,8 @@ For our baseline, we follow work done in MIMIC, and solve (1.) via simple forwar
 Motivated by existing clinical practice, for our more specific tasks of early Sepsis diagnosis and abnormalitiy detection in WBC count, hemoglobin, and procalcitonin amounts, we modify our models to output a rolling assessment of Sepsis/abnormality risk. Specifically, we allow our models to ingest 24-hour windows of data, and ask them to predict risk in a specified prediction window (usually a 12-hour window after a gap time of 6 hours to prevent label leakage).
 
 - See `Rolling_Baselines_LabTests.ipynb` and `Rolling_Baselines_Sepsis.ipynb` for details.
+
+# Transformer-based Architecture 
 
 Our main theoretical contribution is a new architecture modified from [*Attend and Diagnose: Clinical Time Series Analysis using Attention Models*](https://arxiv.org/abs/1711.03905) that utilizes a sinusoidal positional encoding for irregular measurement timesteps to bypass the need for imputation or bucketing. We implemented this new architecture in PyTorch, training and evaluating it on the ICU length-of-stay and in-ICU mortality tasks. We adopted the transformer backbone from [*The Annotated Transformer*](http://nlp.seas.harvard.edu/2018/04/03/attention.html).
 
