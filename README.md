@@ -10,8 +10,6 @@ In order to reproduce our results, one should request access to the PIC database
 
 See `final_paper.pdf` for a detailed report on the details and motivations behind the prediction models we used, as well as some analysis for our results.
 
-## What's in this repository? 
-
 # Preliminaries 
 
 Because there are no gold labels for positive diagnosis of Sepsis in PIC, we must generate silver labels via a rule-based approach for training and testing. Here, we follow the method of [*Predicting Severse Sepsis using Machine Learning*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6798083/), defining a Septic patient as one with a SIRS score of at least 2, and a suspicion of infection. For an indication of this, we look for certain antibiotics in the patient's prescription history. See [*Sepsis-3 in MIMIC*](https://github.com/alistairewj/sepsis3-mimic).
@@ -34,7 +32,7 @@ Motivated by existing clinical practice, for our more specific tasks of early Se
 
 # Transformer-based Architecture 
 
-Our main theoretical contribution is a new architecture modified from [*Attend and Diagnose: Clinical Time Series Analysis using Attention Models*](https://arxiv.org/abs/1711.03905) that utilizes a sinusoidal positional encoding for irregular measurement timesteps to bypass the need for imputation or bucketing. We implemented this new architecture in PyTorch, training and evaluating it on the ICU length-of-stay and in-ICU mortality tasks. We adopted the transformer backbone from [*The Annotated Transformer*](http://nlp.seas.harvard.edu/2018/04/03/attention.html).
+We introduce an architecture modified from [*Attend and Diagnose: Clinical Time Series Analysis using Attention Models*](https://arxiv.org/abs/1711.03905) that utilizes a sinusoidal positional encoding for irregular measurement timesteps to bypass the need for imputation or bucketing. We implemented this new architecture in PyTorch, training and evaluating it on the ICU length-of-stay and in-ICU mortality tasks. We adopted the transformer backbone from [*The Annotated Transformer*](http://nlp.seas.harvard.edu/2018/04/03/attention.html).
 
 - See `Transformer_Model_Mortality_LOS.ipynb` for details
 
